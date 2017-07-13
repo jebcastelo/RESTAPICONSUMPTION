@@ -4,7 +4,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class Book {
 
 	    
@@ -22,12 +21,6 @@ public class Book {
 
 	    public Book() { 
 	    }
-
-//	    public Book(String kind,String kind2, String kind3) {
-//	        this.kind=kind;
-//	        this.=kind;
-//	        this.kind=kind;
-//	    }
 
 	    public String getKind() {
 	         return kind;

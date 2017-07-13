@@ -11,19 +11,15 @@ public class Items {
         public String getEtag() {
             return etag;
         }
-
         public String getSelfLink() {
             return selfLink;
         }
-
         public void setSelfLink(String selfLink) {
             this.selfLink = selfLink;
         }
-
         public void setEtag(String etag) {
             this.etag = etag;
         }
-
         
 //        @Override
 //        public String toString() {

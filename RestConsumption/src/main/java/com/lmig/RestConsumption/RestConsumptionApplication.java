@@ -15,44 +15,35 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
+//import mdb.webapp.movieDbApplication;
 
 @SpringBootApplication 
 public class RestConsumptionApplication {
-    Book book;
+     
+	private static final Logger log = LoggerFactory.getLogger(RestConsumptionApplication.class);
 
-    private static final Logger log = LoggerFactory.getLogger(RestConsumptionApplication.class);
+	public static void main(String args[]) {
+		SpringApplication.run(RestConsumptionApplication.class);
+	}
+	
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
 
-//    CODE for consuming rest API using rest template
-//    public static void main(String args[]) {
-//        SpringApplication.run(ConsumeApplication.class);
-//    }
-//
-//    @Bean
-//    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-//        return builder.build();
-//    }
+  @Bean
+	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+		return args -> {
+			Book book = restTemplate.getForObject(
+				"https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes", Book.class);
+			log.info(book.toString());
 
-//
-//    @Bean
-//    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-//        return args -> {
-//             book = restTemplate.getForObject(
-//                    "https://www.googleapis.com/books/v1/volumes?q=crochet", Book.class);
-//            log.info(book.toString());
-//        };
-//    }
-//    
 
-//    Code for posting to REST API using rest template
-//    Comment out main method for GET 
-       public static void main(String[] args) {
-           //POST METHOD
-            MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+			MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
             Map map = new HashMap<String, String>();
             map.put("Content-Type", "application/json");
-
-            headers.setAll(map);
+			
+			headers.setAll(map);
 
             Map req_payload = new HashMap();
             req_payload.put("name", "Jeb");
@@ -62,6 +53,8 @@ public class RestConsumptionApplication {
 
             ResponseEntity<?> response = new RestTemplate().postForEntity(url, request, String.class);
             System.out.println(response);
+	};
+    	  
         }    
     
     
